@@ -1,30 +1,16 @@
 import React, { Component } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { API, TOKEN } from "../API";
-import { Link } from "react-router-dom";
+import { API } from "../API";
+import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
+import { getUser } from "../redux/actions/authActions";
 
 class LoginForm extends Component {
-  // state = {};
-
-  // Formik
-  componentDidMount() {
-    if (TOKEN) {
-      // Als er een token is (uit local storage) dan gaan we de gebruikersgevens ophalen
-      this.getUserData();
-    }
-  }
-
+  state = { redirect: false };
   submitHandler = values => {
     this.login(values);
-    console.log(values);
-  };
-
-  getUserData = () => {
-    API.get("api/user").then(response => {
-      this.props.setUserData(response.data);
-      // this.setState({ user: response.data });
-    });
+    // console.log(values);
+    this.setState({ redirect: true });
   };
 
   login = values => {
@@ -42,11 +28,16 @@ class LoginForm extends Component {
       API.defaults.headers.common["Authorization"] =
         "Bearer " + response.data.access_token;
 
-      this.getUserData();
+      // this.setState({ user: response.data });
+      this.props.setUserData();
     });
   };
 
   render() {
+    const redirect = this.state.redirect;
+    if (redirect) {
+      return <Redirect to="/" />;
+    }
     return (
       <Formik
         onSubmit={this.submitHandler}
@@ -73,9 +64,10 @@ class LoginForm extends Component {
             ></Field>
             <button className="btn btn-info my-4 btn-block" type="submit">
               Inloggen
-            </button>{" "}
+            </button>
+
             <p>
-              {Object.keys(this.props.user).length !== 0 ? (
+              {this.props.user.user !== undefined ? (
                 <em>Ingelogd </em>
               ) : (
                 <Link to="/register">Registreren</Link>
@@ -88,13 +80,13 @@ class LoginForm extends Component {
   }
 }
 
-const mapStateToProps = store => {
-  return { user: store.auth };
+const mapStateToProps = state => {
+  return { user: state.auth };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    setUserData: user => dispatch({ type: "SET_USER", payload: user })
+    setUserData: () => dispatch(getUser())
   };
 };
 

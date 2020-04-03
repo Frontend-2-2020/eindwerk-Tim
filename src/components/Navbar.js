@@ -2,8 +2,10 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { connect } from "react-redux";
+import { logout } from "../redux/actions/authActions";
 
-export default class Navbar extends Component {
+class Navbar extends Component {
   render() {
     return (
       <nav className="navbar navbar-dark bg-dark">
@@ -20,9 +22,20 @@ export default class Navbar extends Component {
               </Link>
             </li> */}
             <li>
-              <Link to="/login" className="nav-link">
-                <FontAwesomeIcon icon={faUser}></FontAwesomeIcon> Login
-              </Link>
+              {this.props.user.user !== undefined ? (
+                <span className="nav-link">
+                  <FontAwesomeIcon
+                    icon={faUser}
+                    onClick={this.props.logout}
+                  ></FontAwesomeIcon>
+                </span>
+              ) : (
+                <Link to="/login" className="nav-link">
+                  <span>
+                    <FontAwesomeIcon icon={faUser}></FontAwesomeIcon> Login
+                  </span>
+                </Link>
+              )}
             </li>
           </ul>
         </div>
@@ -30,3 +43,17 @@ export default class Navbar extends Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+  return { user: state.auth };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    logout: () => {
+      dispatch(logout());
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

@@ -2,12 +2,23 @@ import React, { Component } from "react";
 import LoginForm from "./components/LoginForm";
 import RegisterFrom from "./components/RegisterForm";
 import Overview from "./components/Overview";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
+import { getPosts } from "./redux/actions/postsActions";
+import { getUser } from "./redux/actions/authActions";
+import { TOKEN } from "./API";
 
 import "bootstrap/dist/css/bootstrap.min.css";
+import { connect } from "react-redux";
 
-export default class App extends Component {
+class App extends Component {
+  componentDidMount() {
+    this.props.getposts();
+
+    if (TOKEN) {
+      this.props.setUserData();
+    }
+  }
   render() {
     return (
       <div>
@@ -26,3 +37,12 @@ export default class App extends Component {
     );
   }
 }
+
+const mapDispatchToProps = dispatch => {
+  return {
+    getposts: () => dispatch(getPosts()),
+    setUserData: () => dispatch(getUser())
+  };
+};
+
+export default connect(undefined, mapDispatchToProps)(App);

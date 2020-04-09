@@ -15,21 +15,23 @@ class NewPost extends Component {
         initialValues={{ title: "", body: "" }}
       >
         <Form>
-          <Field
-            type="text"
-            name="title"
-            className="form-control mb-4"
-            placeholder="titel"
-          ></Field>
-          <Field
-            type="text"
-            name="body"
-            className="form-control mb-4"
-            placeholder="tekst"
-          ></Field>{" "}
-          <button className="btn btn-info my-4 btn-block" type="submit">
-            Bevestigen
-          </button>
+          <div className="newPost">
+            <Field
+              type="text"
+              name="title"
+              className="form-control mb-4"
+              placeholder="titel"
+            ></Field>
+            <Field
+              type="text"
+              name="body"
+              className="form-control mb-4"
+              placeholder="tekst"
+            ></Field>{" "}
+            <button className="btn btn-info my-4 btn-block" type="submit">
+              Bevestigen
+            </button>
+          </div>
         </Form>
       </Formik>
     );

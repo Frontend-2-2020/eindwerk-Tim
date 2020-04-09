@@ -13,7 +13,7 @@ import { connect } from "react-redux";
 
 class App extends Component {
   componentDidMount() {
-    this.props.getposts();
+    this.props.getposts(1);
 
     if (TOKEN) {
       this.props.setUserData();
@@ -38,10 +38,10 @@ class App extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    getposts: () => dispatch(getPosts()),
-    setUserData: () => dispatch(getUser())
+    getposts: (pagenumber) => dispatch(getPosts(pagenumber)),
+    setUserData: () => dispatch(getUser()),
   };
 };
 

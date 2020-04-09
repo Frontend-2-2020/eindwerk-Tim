@@ -2,7 +2,12 @@ $backgroundColor: #eeeeee;
 
 .overviewContainer {
   background-color: $backgroundColor;
-
+  .postsHeader {
+    padding: 20px;
+    .addIcon {
+      font-size: 2.5em;
+    }
+  }
   .post {
     background-color: #ffffff;
     border-radius: 2px;

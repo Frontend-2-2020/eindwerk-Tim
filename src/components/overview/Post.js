@@ -11,7 +11,7 @@ class Post extends Component {
     const difftimestamp = moment() - moment(post.created_at);
     console.log(moment.duration(difftimestamp));
     return (
-      <div className="post container">
+      <div className="post">
         <div className="row">
           <div className="col col-left col-1">
             <img className="avatar" src={post.user.avatar} alt="" />

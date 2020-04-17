@@ -27,15 +27,14 @@ $backgroundColor: #eeeeee;
     .col-center {
       padding: 20px;
     }
-    * > div {
-      //   border: 1px solid grey;
-      //   padding: 15px;
-    }
-
     h2 {
       color: #363838;
       font-size: 18px;
       font-family: "open sans", sans-serif;
+    }
+    h2:hover {
+      text-decoration: underline;
+      cursor: pointer;
     }
     .postText {
       color: #989c9e;

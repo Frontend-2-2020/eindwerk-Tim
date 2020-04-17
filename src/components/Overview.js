@@ -16,11 +16,6 @@ class Overview extends Component {
   //   this.props.posts = [];
   // }
 
-  newPageHandler = (pageNumber) => {
-    console.log(pageNumber);
-    this.props.getPosts(pageNumber);
-  };
-
   componentDidUpdate(prevprops) {
     if (prevprops.user !== this.props.user) {
       this.setState({ showAddPost: false });
@@ -38,7 +33,9 @@ class Overview extends Component {
                 <Pagination
                   currentPage={this.props.posts.current_page}
                   pageCount={this.props.posts.last_page}
-                  newPageHandler={this.newPageHandler}
+                  newPageHandler={(pageNumber) =>
+                    this.props.getPosts(pageNumber)
+                  }
                 ></Pagination>
               </div>
               <div className="searchbar col"></div>

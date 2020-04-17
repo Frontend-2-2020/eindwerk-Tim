@@ -19,6 +19,12 @@ export const ellipsify = (str) => {
 export const timeDiff = (timestamp) => {
   const worker = moment.duration(timestamp);
   if (worker._data.days > 0) {
-    return worker._data.days + " days";
+    return worker._data.days + " days ago";
+  }
+  if (worker._data.days === 0 && worker._data.hours > 0) {
+    return worker._data.hours + "hours ago";
+  }
+  if (worker._data.days === 0 && worker.data_.hours === 0) {
+    return worker._data.minutes + "minutes ago";
   }
 };

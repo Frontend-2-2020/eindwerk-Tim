@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import LoginForm from "./components/LoginForm";
 import RegisterFrom from "./components/RegisterForm";
 import Overview from "./components/Overview";
+import PostDetail from "./components/PostDetail";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import { getPosts } from "./redux/actions/postsActions";
@@ -27,6 +28,7 @@ class App extends Component {
           <Switch>
             <Route path="/register" component={RegisterFrom} />
             <Route path="/login" component={LoginForm} />
+            <Route path="/post/:postId" component={PostDetail} />
             <Route path="/" component={Overview} exact />
             <Route Path="/">
               <h1>404</h1>

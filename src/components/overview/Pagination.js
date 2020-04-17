@@ -6,7 +6,7 @@ export default class Pagination extends Component {
     let linkItems = [];
     for (let i = 0; i < pageCount; i++) {
       linkItems.push(
-        <li className="page-item">
+        <li className="page-item" key={i}>
           <button
             className="page-link"
             onClick={() => this.props.newPageHandler(i + 1)}

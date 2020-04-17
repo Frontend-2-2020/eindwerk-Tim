@@ -1,15 +1,18 @@
 import React, { Component } from "react";
-import { ellipsify, timeDiff } from "../../helpers/helpers";
+import { ellipsify } from "../../helpers/helpers";
 import moment from "moment";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 class Post extends Component {
   render() {
-    const { post } = this.props;
-    const difftimestamp = moment() - moment(post.created_at);
-    console.log(moment.duration(difftimestamp));
+    const { post, user } = this.props;
+    // const difftimestamp = moment() - moment(post.created_at);
+    // console.log(moment(post.created_at).fromNow());
+    // console.log(moment.duration(difftimestamp));
     return (
       <div className="post">
         <div className="row">
@@ -17,7 +20,9 @@ class Post extends Component {
             <img className="avatar" src={post.user.avatar} alt="" />
           </div>
           <div className="col-center col-9">
-            <h2>{post.title}</h2>
+            <Link to={`/post/${post.id}`}>
+              <h2 className="postTitle">{post.title}</h2>
+            </Link>
             <p className="postText">{ellipsify(post.body)}</p>
           </div>
           <div className="col col-right col-2">
@@ -30,7 +35,7 @@ class Post extends Component {
                 icon={faClock}
                 mask={["far", "circle"]}
               ></FontAwesomeIcon>{" "}
-              {timeDiff(difftimestamp)}
+              {moment.utc(post.created_at).fromNow()}
             </div>
           </div>
         </div>
@@ -39,4 +44,8 @@ class Post extends Component {
   }
 }
 
-export default Post;
+const mapStateToProps = (state) => {
+  return { user: state.auth.user };
+};
+
+export default connect(mapStateToProps)(Post);

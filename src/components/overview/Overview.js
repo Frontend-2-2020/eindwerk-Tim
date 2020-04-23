@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import Post from "./overview/Post";
+import Post from "./Post";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
-import { getPosts } from "../redux/actions/postsActions";
 
 import "./Overview.scss";
-import NewPost from "./overview/NewPost";
-import Pagination from "./overview/Pagination";
+
+import { getPosts } from "../../redux/actions/postsActions";
+import NewPost from "./NewPost";
+import Pagination from "./Pagination";
 
 class Overview extends Component {
   state = { showAddPost: false, pagenumber: 1 };

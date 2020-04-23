@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import LoginForm from "./components/LoginForm";
 import RegisterFrom from "./components/RegisterForm";
-import Overview from "./components/Overview";
+import Overview from "./components/overview/Overview";
 import PostDetail from "./components/PostDetail";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";

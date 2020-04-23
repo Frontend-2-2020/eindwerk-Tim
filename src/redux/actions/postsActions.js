@@ -6,13 +6,22 @@ export const getPosts = (selectedPage) => async (dispatch) => {
   dispatch({ type: "SET_POSTS", payload: res.data });
 };
 
-export const newPost = (values) => async (dispatch) => {
+export const newPost = (values, user) => (dispatch) => {
   // console.log(values);
-  const res = await API.post(`api/posts`, values);
+  API.post(`api/posts`, values).then((res) => {
+    res.data.user = user;
+    dispatch({ type: "ADD_POST", payload: res.data });
+  });
   // const res = await Axios.post(`https://eindwerk.jnnck.be/api/posts`, values, {
   //   headers: {
   //     Authorization: `Bearer ${TOKEN}`,
   //   },
   // });
-  dispatch({ type: "ADD_POST", payload: res.data });
+};
+
+export const deletePost = (postId) => (dispatch) => {
+  // console.log("postid = " + postId);
+  API.delete(`api/posts/${postId}`).then((res) => {
+    dispatch({ type: "DELETE_POST", payload: postId });
+  });
 };

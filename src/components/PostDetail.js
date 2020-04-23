@@ -18,7 +18,10 @@ export default class PostDetail extends Component {
         <div class="card-header">Post ID: {this.props.match.params.postId}</div>
         <div class="card-body">
           <h5 class="card-title">{post && post.title}</h5>
-          <p class="card-text">{post && post.body}</p>
+          <p
+            class="card-text"
+            dangerouslySetInnerHTML={{ __html: post && post.body }}
+          ></p>
           <Link to="/" className="btn btn-primary">
             Terug naar overzicht
           </Link>

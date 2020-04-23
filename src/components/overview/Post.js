@@ -46,7 +46,10 @@ class Post extends Component {
             <Link to={`/post/${post.id}`}>
               <h2 className="postTitle">{post.title}</h2>
             </Link>
-            <p className="postText">{ellipsify(post.body)}</p>
+            <p
+              className="postText"
+              dangerouslySetInnerHTML={{ __html: ellipsify(post.body) }}
+            ></p>
           </div>
           <div className="col col-right col-2">
             <div className="postCount">

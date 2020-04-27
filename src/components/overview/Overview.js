@@ -22,6 +22,13 @@ class Overview extends Component {
       this.setState({ showAddPost: false });
     }
   }
+
+  changePostHandler = (post) => {
+    console.log(post);
+    this.setState({ selectedPost: post });
+    this.setState({ showAddPost: true });
+  };
+
   render() {
     const postsheader = this.props.posts;
     const posts = postsheader.data;
@@ -46,7 +53,10 @@ class Overview extends Component {
                     className="addPost"
                     alt="post toevoegen"
                     onClick={() =>
-                      this.setState({ showAddPost: !this.state.showAddPost })
+                      this.setState({
+                        showAddPost: !this.state.showAddPost,
+                        selectedPost: undefined,
+                      })
                     }
                   >
                     <FontAwesomeIcon
@@ -61,10 +71,23 @@ class Overview extends Component {
             </div>
           </div>
           <div className="addPost">
-            {this.state.showAddPost ? <NewPost></NewPost> : ""}
+            {this.state.showAddPost ? (
+              <NewPost
+                selectedPost={this.state.selectedPost}
+                hideHandler={() => this.setState({ showAddPost: false })}
+              ></NewPost>
+            ) : (
+              ""
+            )}
           </div>
           {posts &&
-            posts.map((post) => <Post key={post.id} post={post}></Post>)}
+            posts.map((post) => (
+              <Post
+                key={post.id}
+                post={post}
+                changePostHandler={this.changePostHandler}
+              ></Post>
+            ))}
         </div>
       </div>
     );

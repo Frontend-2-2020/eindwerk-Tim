@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Formik } from "formik";
 import { connect } from "react-redux";
-import { newPost } from "../../redux/actions/postsActions";
+import { newPost, editPost } from "../../redux/actions/postsActions";
 import NewPostForm from "./NewPostForm";
 import axios from "axios";
 
@@ -9,30 +9,57 @@ class NewPost extends Component {
   state = {};
 
   componentDidMount() {
-    this.getDummyText();
+    if (this.props.selectedPost) {
+      const { selectedPost } = this.props;
+      this.setState({ title: selectedPost.title, body: selectedPost.body });
+    } else {
+      this.getDummyText();
+    }
+  }
+  componentDidUpdate(prevProps) {
+    if (this.props !== prevProps) {
+      if (this.props.selectedPost) {
+        const { selectedPost } = this.props;
+        this.setState({ title: selectedPost.title, body: selectedPost.body });
+      } else {
+        this.getDummyText();
+      }
+    }
   }
 
   getDummyText() {
     axios.get("https://cat-fact.herokuapp.com/facts").then((res) => {
-      this.setState({ dummyBody: res.data.all[0].text });
+      this.setState({ title: "Cat Fact", body: res.data.all[0].text });
       // setFieldValue("body", res.data.all[0].text);
     });
   }
 
   submitHandler = (values) => {
-    this.props.newPost(values, this.props.user);
+    const { user, selectedPost } = this.props;
+    if (this.props.selectedPost) {
+      this.props.editPost(values, user, selectedPost);
+    } else {
+      this.props.newPost(values, user);
+    }
+    this.props.hideHandler();
   };
 
   validate = (values) => {
     const errors = {};
-    const requiredFields = ["title"];
+    const requiredFields = ["title", "body"];
+    requiredFields.forEach((requiredField) => {
+      if (!values[requiredField]) {
+        errors[requiredField] = "required";
+      }
+    });
+    return errors;
   };
   render() {
     return (
       <Formik
         onSubmit={this.submitHandler}
         validate={this.validate}
-        initialValues={{ title: "Cat Fact", body: this.state.dummyBody }}
+        initialValues={{ title: this.state.title, body: this.state.body }}
         enableReinitialize
       >
         {(props) => <NewPostForm {...props}></NewPostForm>}
@@ -45,7 +72,11 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return { newPost: (values, user) => dispatch(newPost(values, user)) };
+  return {
+    newPost: (values, user) => dispatch(newPost(values, user)),
+    editPost: (values, user, selectedPost) =>
+      dispatch(editPost(values, user, selectedPost)),
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewPost);

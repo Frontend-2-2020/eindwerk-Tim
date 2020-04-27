@@ -23,7 +23,13 @@ class Post extends Component {
           <div className="col">
             {post && user && post.user_id === user.id ? (
               <div className="float-right">
-                <button className="btn btn-light"> edit</button>
+                <button
+                  className="btn btn-light mr-2"
+                  onClick={() => this.props.changePostHandler(post)}
+                >
+                  {" "}
+                  edit
+                </button>
                 <button
                   className="btn btn-danger"
                   onClick={() => this.props.deletePost(post.id)}
@@ -51,7 +57,7 @@ class Post extends Component {
               dangerouslySetInnerHTML={{ __html: ellipsify(post.body) }}
             ></p>
           </div>
-          <div className="col col-right col-2">
+          <div className="col-sm col-right col-2">
             <div className="postCount">
               {post.comments_count}
               <div className="mark"></div>

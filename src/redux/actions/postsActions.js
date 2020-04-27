@@ -19,6 +19,19 @@ export const newPost = (values, user) => (dispatch) => {
   // });
 };
 
+export const editPost = (values, user, selectedPost) => (dispatch) => {
+  console.log(selectedPost);
+  API.put(`api/posts/${selectedPost.id}`, values).then((res) => {
+    res.data.user = user;
+    dispatch({ type: "EDIT_POST", payload: res.data });
+  });
+  // const res = await Axios.post(`https://eindwerk.jnnck.be/api/posts`, values, {
+  //   headers: {
+  //     Authorization: `Bearer ${TOKEN}`,
+  //   },
+  // });
+};
+
 export const deletePost = (postId) => (dispatch) => {
   // console.log("postid = " + postId);
   API.delete(`api/posts/${postId}`).then((res) => {

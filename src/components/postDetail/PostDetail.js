@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import { API } from "../API";
+import { API } from "../../API";
 import moment from "moment";
 import { Link } from "react-router-dom";
-import Comment from "./postDetail/Comment";
+import Comment from "./Comment";
 
 export default class PostDetail extends Component {
   state = {};

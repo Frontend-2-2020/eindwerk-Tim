@@ -27,6 +27,12 @@ class Overview extends Component {
     console.log(post);
     this.setState({ selectedPost: post });
     this.setState({ showAddPost: true });
+    // document.documentElement.scrollTop = 0;
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
   };
 
   render() {

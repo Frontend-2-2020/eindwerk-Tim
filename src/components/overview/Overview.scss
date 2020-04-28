@@ -19,7 +19,14 @@ $backgroundColor: #eeeeee;
     border-radius: 2px;
     box-shadow: 0 1px 2px #c9cccd;
     margin-bottom: 20px;
-
+    .userLink {
+      color: #6b6b6bc0;
+      font-size: 18px;
+      // font-family: "open sans", sans-serif;
+    }
+    .userLink:hover {
+      transition: 0.4s all;
+    }
     .col {
       margin: auto;
       text-align: center;

@@ -18,7 +18,12 @@ class Post extends Component {
       <div className="post card">
         <div className="row card-header">
           <div className="col">
-            <div className="float-left">{post.user.email}</div>
+            <div className="float-left">
+              Posted by:{" "}
+              <Link to={`/user/${post.user_id}`}>
+                <span className="userLink">{post.user.email}</span>
+              </Link>
+            </div>
           </div>
           <div className="col">
             {post && user && post.user_id === user.id ? (

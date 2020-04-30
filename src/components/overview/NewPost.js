@@ -29,7 +29,8 @@ class NewPost extends Component {
 
   getDummyText() {
     axios.get("https://cat-fact.herokuapp.com/facts").then((res) => {
-      this.setState({ title: "Cat Fact", body: res.data.all[0].text });
+      let indexValue = Math.floor(Math.random() * res.data.all.length);
+      this.setState({ title: "Cat Fact", body: res.data.all[indexValue].text });
       // setFieldValue("body", res.data.all[0].text);
     });
   }

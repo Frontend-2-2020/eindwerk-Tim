@@ -63,7 +63,7 @@ class NewPost extends Component {
         initialValues={{ title: this.state.title, body: this.state.body }}
         enableReinitialize
       >
-        {(props) => <NewPostForm {...props}></NewPostForm>}
+        {(props) => <NewPostForm {...props} {...this.props}></NewPostForm>}
       </Formik>
     );
   }

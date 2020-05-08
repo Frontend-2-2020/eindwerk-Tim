@@ -9,6 +9,7 @@ import "./Overview.scss";
 import { getPosts } from "../../redux/actions/postsActions";
 import NewPost from "./NewPost";
 import Pagination from "./Pagination";
+import Spinner from "../Spinner";
 
 class Overview extends Component {
   state = { showAddPost: false, pagenumber: 1 };
@@ -41,7 +42,8 @@ class Overview extends Component {
     return (
       <div className="overviewContainer container-fluid">
         <div className="container">
-          <div className="postsHeader">
+          <div className="postsNav">
+            {/* Navigatie + toevoegen knop BEGIN */}
             <div className="row">
               <div className="col">
                 <Pagination
@@ -76,24 +78,40 @@ class Overview extends Component {
               </div>
             </div>
           </div>
+          {/* Navigatie + toevoegen knop EINDE */}
+          {/* Newpost Form Begin */}
           <div className="addPost">
             {this.state.showAddPost ? (
               <NewPost
                 selectedPost={this.state.selectedPost}
                 hideHandler={() => this.setState({ showAddPost: false })}
+                buttonText="Bevestigen"
               ></NewPost>
             ) : (
               ""
             )}
           </div>
-          {posts &&
-            posts.map((post) => (
-              <Post
-                key={post.id}
-                post={post}
-                changePostHandler={this.changePostHandler}
-              ></Post>
-            ))}
+          {/* Newpost Form Einde */}
+          {/* Posts Begin */}
+          {posts ? (
+            <div className="container">
+              <div className="row postsHeader">
+                <div className="col headerItem">User:</div>
+                <div className="col headerItem">Title:</div>
+                <div className="col headerItem">Message:</div>
+              </div>
+              {posts.map((post) => (
+                <Post
+                  key={post.id}
+                  post={post}
+                  changePostHandler={this.changePostHandler}
+                ></Post>
+              ))}
+            </div>
+          ) : (
+            <Spinner />
+          )}
+          {/* Posts Einde */}
         </div>
       </div>
     );

@@ -7,6 +7,7 @@ import { faClock } from "@fortawesome/free-solid-svg-icons";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { deletePost } from "../../redux/actions/postsActions";
+import "./Post.scss";
 
 class Post extends Component {
   render() {
@@ -15,67 +16,21 @@ class Post extends Component {
     // console.log(moment(post.created_at).fromNow());
     // console.log(moment.duration(difftimestamp));
     return (
-      <div className="post card">
-        <div className="row card-header">
-          <div className="col">
-            <div className="float-left">
-              Posted by:{" "}
+      <div className="post-terminal">
+        <Link to={`/post/${post.id}`}>
+          <div className="row">
+            <div className="col userinfo">
               <Link to={`/user/${post.user_id}`}>
                 <span className="userLink">{post.user.email}</span>
               </Link>
             </div>
-          </div>
-          <div className="col">
-            {post && user && post.user_id === user.id ? (
-              <div className="float-right">
-                <button
-                  className="btn btn-light mr-2"
-                  onClick={() => this.props.changePostHandler(post)}
-                >
-                  {" "}
-                  edit
-                </button>
-                <button
-                  className="btn btn-danger"
-                  onClick={() => this.props.deletePost(post.id)}
-                >
-                  delete
-                </button>
-              </div>
-            ) : (
-              ""
-            )}
-          </div>
-        </div>
-        <div className="row card-body">
-          <div className="col col-left col-1">
-            <div className="d-flex flex-column">
-              <img className="avatar" src={post.user.avatar} alt="" />
-            </div>
-          </div>
-          <div className="col-center col-9">
-            <Link to={`/post/${post.id}`}>
-              <h2 className="postTitle">{post.title}</h2>
-            </Link>
-            <p
-              className="postText"
+            <div className="col status">{post.title}</div>
+            <div
+              className="col text"
               dangerouslySetInnerHTML={{ __html: ellipsify(post.body) }}
-            ></p>
+            ></div>
           </div>
-          <div className="col-sm col-right col-2">
-            <div className="postCount">
-              {post.comments_count}
-              <div className="mark"></div>
-            </div>
-            <div className="postDate">
-              <FontAwesomeIcon
-                icon={faClock}
-                mask={["far", "circle"]}
-              ></FontAwesomeIcon>{" "}
-              {moment.utc(post.created_at).fromNow()}
-            </div>
-          </div>
-        </div>
+        </Link>
       </div>
     );
   }

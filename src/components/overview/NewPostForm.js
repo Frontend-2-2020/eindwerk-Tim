@@ -54,7 +54,7 @@ export default class NewPostForm extends Component {
             ></ErrorMessage>
           </div>
           <button className="btn btn-info my-4 btn-block" type="submit">
-            Bevestigen
+            {this.props.buttonText}
           </button>
         </div>
       </Form>

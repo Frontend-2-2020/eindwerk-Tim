@@ -14,6 +14,8 @@ import { connect } from "react-redux";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.scss";
+import Spinner from "./components/Spinner";
+import Sandbox from "./Sandbox";
 
 const Navbar = lazy(() => import("./components/Navbar"));
 const LoginForm = lazy(() => import("./components/LoginForm"));
@@ -34,11 +36,18 @@ class App extends Component {
     return (
       <div>
         <Router>
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense
+            fallback={
+              <div className="loadingPage">
+                <Spinner></Spinner>
+              </div>
+            }
+          >
             <Navbar></Navbar>
             <Switch>
               <Route path="/register" component={RegisterFrom} />
               <Route path="/login" component={LoginForm} />
+              <Route path="/sandbox" component={Sandbox} />
               <Route path="/post/:postId" component={PostDetail} />
               <Route path="/user/:userId" component={User} />
               <Route path="/" component={Overview} exact />

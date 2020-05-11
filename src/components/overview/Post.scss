@@ -1,23 +1,27 @@
 .post-terminal {
-  .row *:hover {
+  &:hover {
     // font-weight: bold;
     color: rgb(7, 246, 79);
+    background-color: #cccccc;
+  }
+  a:hover {
+    text-decoration: none;
   }
   .row {
+    // margin: 0;
     * {
       text-decoration: none;
       //   font-weight: bold;
       color: black;
     }
-    // *:hover {
-    //   font-weight: bold;
-    // }
-    .col {
-      border-right: 1px solid black;
-      border-bottom: 1px dashed rgba(0, 0, 0, 0.2);
-      *:hover {
-        text-decoration: none;
-        // font-weight: bold;
+
+    [class*="col"] {
+      // border-right: 1px solid black;
+      // border-bottom: 1px dashed rgba(0, 0, 0, 0.2);
+
+      .post-title {
+        font-size: large;
+        font-weight: bold;
       }
     }
   }

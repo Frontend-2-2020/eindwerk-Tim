@@ -30,7 +30,7 @@ class Post extends Component {
               <div className="float-right">
                 <button
                   className="btn btn-light mr-2"
-                  onClick={() => this.props.changePostHandler(post)}
+                  onClick={() => this.props.changePostHandler(e, post)}
                 >
                   {" "}
                   edit

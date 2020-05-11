@@ -24,7 +24,9 @@ class Overview extends Component {
     }
   }
 
-  changePostHandler = (post) => {
+  changePostHandler = (e, post) => {
+    e.preventDefault();
+    // e.stopPropagation();
     console.log(post);
     this.setState({ selectedPost: post });
     this.setState({ showAddPost: true });
@@ -41,7 +43,7 @@ class Overview extends Component {
     const posts = postsheader.data;
     return (
       <div className="overviewContainer container-fluid">
-        <div className="container">
+        <div className="container-fluid">
           <div className="postsNav">
             {/* Navigatie + toevoegen knop BEGIN */}
             <div className="row">
@@ -94,17 +96,21 @@ class Overview extends Component {
           {/* Newpost Form Einde */}
           {/* Posts Begin */}
           {posts ? (
-            <div className="container">
+            <div className="container-fluid postsContainer">
               <div className="row postsHeader">
-                <div className="col headerItem">User:</div>
-                <div className="col headerItem">Title:</div>
-                <div className="col headerItem">Message:</div>
+                <div className="col-md-4 col-xl-3 headerItem">User:</div>
+                <div className="col-md-4 col-xl-5 headerItem">Title:</div>
+                <div className="col-md-4 col-xl-4 headerItem noRightBorder">
+                  Message:
+                </div>
               </div>
               {posts.map((post) => (
                 <Post
                   key={post.id}
                   post={post}
-                  changePostHandler={this.changePostHandler}
+                  changePostHandler={(e, post) =>
+                    this.changePostHandler(e, post)
+                  }
                 ></Post>
               ))}
             </div>

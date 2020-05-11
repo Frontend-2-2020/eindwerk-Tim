@@ -32,7 +32,8 @@ export const editPost = (values, user, selectedPost) => (dispatch) => {
   // });
 };
 
-export const deletePost = (postId) => (dispatch) => {
+export const deletePost = (e, postId) => (dispatch) => {
+  e.preventDefault();
   // console.log("postid = " + postId);
   API.delete(`api/posts/${postId}`).then((res) => {
     dispatch({ type: "DELETE_POST", payload: postId });

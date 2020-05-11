@@ -53,7 +53,10 @@ export default class NewPostForm extends Component {
               )}
             ></ErrorMessage>
           </div>
-          <button className="btn btn-info my-4 btn-block" type="submit">
+          <button
+            className="btn my-4 btn-block nes-btn is-success"
+            type="submit"
+          >
             {this.props.buttonText}
           </button>
         </div>

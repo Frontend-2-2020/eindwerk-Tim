@@ -13,6 +13,7 @@ import { connect } from "react-redux";
 // import User from "./components/user/User";
 
 import "bootstrap/dist/css/bootstrap.min.css";
+import "nes.css/css/nes.min.css";
 import "./App.scss";
 import Spinner from "./components/Spinner";
 import Sandbox from "./Sandbox";

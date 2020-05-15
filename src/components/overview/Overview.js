@@ -119,6 +119,17 @@ class Overview extends Component {
           )}
           {/* Posts Einde */}
         </div>
+        <div className="postsNav">
+          <div className="row">
+            <div className="col">
+              <Pagination
+                currentPage={this.props.posts.current_page}
+                pageCount={this.props.posts.last_page}
+                newPageHandler={(pageNumber) => this.props.getPosts(pageNumber)}
+              ></Pagination>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

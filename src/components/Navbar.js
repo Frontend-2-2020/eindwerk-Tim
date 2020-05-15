@@ -13,7 +13,7 @@ class Navbar extends Component {
         <div className="container-fluid">
           <div className="navbar-header">
             <Link to="/" className="navbar-brand">
-              <div class="ascii-art" dangerouslySetInnerHTML={logo}></div>
+              <div className="ascii-art" dangerouslySetInnerHTML={logo}></div>
             </Link>
           </div>
           <ul className="nav navbar-nav navbar-right list-group list-group-horizontal">

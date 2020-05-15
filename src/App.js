@@ -4,13 +4,7 @@ import { getPosts } from "./redux/actions/postsActions";
 import { getUser } from "./redux/actions/authActions";
 import { TOKEN } from "./API";
 import { connect } from "react-redux";
-
-// import Navbar from "./components/Navbar";
-// import LoginForm from "./components/LoginForm";
-// import RegisterFrom from "./components/RegisterForm";
-// import Overview from "./components/overview/Overview";
-// import PostDetail from "./components/postDetail/PostDetail";
-// import User from "./components/user/User";
+import Navbar from "./components/Navbar";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "nes.css/css/nes.min.css";
@@ -18,7 +12,7 @@ import "./App.scss";
 import Spinner from "./components/Spinner";
 import Sandbox from "./Sandbox";
 
-const Navbar = lazy(() => import("./components/Navbar"));
+// const Navbar = lazy(() => import("./components/Navbar"));
 const LoginForm = lazy(() => import("./components/LoginForm"));
 const RegisterFrom = lazy(() => import("./components/RegisterForm"));
 const Overview = lazy(() => import("./components/overview/Overview"));
@@ -37,6 +31,7 @@ class App extends Component {
     return (
       <div>
         <Router>
+          <Navbar></Navbar>
           <Suspense
             fallback={
               <div className="loadingPage">
@@ -44,7 +39,6 @@ class App extends Component {
               </div>
             }
           >
-            <Navbar></Navbar>
             <Switch>
               <Route path="/register" component={RegisterFrom} />
               <Route path="/login" component={LoginForm} />

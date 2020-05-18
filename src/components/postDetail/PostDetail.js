@@ -4,6 +4,10 @@ import moment from "moment";
 import { Link } from "react-router-dom";
 import Comment from "./Comment";
 
+import "./PostDetail.scss";
+import "moment/locale/nl-be";
+moment.locale("nl-be");
+
 export default class PostDetail extends Component {
   state = {};
   componentDidMount() {
@@ -14,23 +18,48 @@ export default class PostDetail extends Component {
   render() {
     const { post } = this.state;
     return (
-      <div class="card text-center">
-        <div class="card-header">Post ID: {this.props.match.params.postId}</div>
-        <div class="card-body">
-          <h5 class="card-title">{post && post.title}</h5>
-          <p
-            class="card-text"
-            dangerouslySetInnerHTML={{ __html: post && post.body }}
-          ></p>
-          <Link to="/" className="btn btn-primary">
-            Terug naar overzicht
-          </Link>
+      <div className="container-xl ">
+        <div className="row justify-content-center">
+          <div class="col-md-8 mt-3">
+            <div className="showcase">
+              <div className="nes-container with-title">
+                <h2 className=" title">
+                  PID:{this.props.match.params.postId} / Created:
+                  {post && moment.utc(post.created_at).format("LLL")}
+                </h2>
+                <div className="p-3">
+                  <img
+                    src={post && post.user.avatar}
+                    className="card-img-top mx-auto d-block avatar "
+                    alt="..."
+                  />
+                  <div className="author-name text-center p-3">
+                    {post && post.user.first_name} {post && post.user.last_name}
+                  </div>
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">{post && post.title}</h5>
+                  <p
+                    class="card-text"
+                    dangerouslySetInnerHTML={{ __html: post && post.body }}
+                  ></p>
+                  <Link to="/" className="btn btn-primary float-right">
+                    Terug naar overzicht
+                  </Link>
+                </div>
+                <div class="card-footer text-muted">
+                  {post && moment.utc(post.created_at).fromNow()}
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="card-footer text-muted">
-          {post && moment.utc(post.created_at).fromNow()}
+        <div className="comment">
+          {post &&
+            post.comments.map((comment) => (
+              <Comment comment={comment}></Comment>
+            ))}
         </div>
-        {post &&
-          post.comments.map((comment) => <Comment comment={comment}></Comment>)}
       </div>
     );
   }

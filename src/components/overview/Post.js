@@ -4,6 +4,7 @@ import moment from "moment";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
+import { faComment } from "@fortawesome/free-solid-svg-icons";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { deletePost } from "../../redux/actions/postsActions";
@@ -17,26 +18,27 @@ class Post extends Component {
     // console.log(moment.duration(difftimestamp));
     return (
       <div className="post-terminal">
-        <Link to={`/post/${post.id}`}>
-          <div className="row">
-            {/* Begin 1ste kolom */}
-            <div className="col-md-4 col-xl-3 userinfo">
-              <Link to={`/user/${post.user_id}`}>
-                <span className="userLink">{post.user.email}</span>
-              </Link>
-            </div>
-            {/* Einde 1ste kolom */}
+        <div className="row postHeader">
+          <div className="col-md-8 noRightBorder">
+            <Link to={`/user/${post.user_id}`}>
+              <span className="userLink">{post.user.email}</span>
+            </Link>
+          </div>
+          <div className="col-md-4 col-xl-4 noRightBorder"></div>
+        </div>
 
-            {/* Begin 2de kolom */}
-            <div className="col-md-4 col-xl-5">
+        <Link to={`/post/${post.id}`}>
+          <div className="row postDetail">
+            {/* Begin 1ste kolom */}
+            <div className="col-md-8">
               <div className="post-title">{post.title}</div>
               <div
                 className="post-message"
                 dangerouslySetInnerHTML={{ __html: ellipsify(post.body) }}
               ></div>
             </div>
-            {/* Einde 2de kolom */}
-            {/* Begin 3de kolom */}
+            {/* Einde 1ste kolom */}
+            {/* Begin 2de kolom */}
             <div className="col-md-4 col-xl-4 noRightBorder">
               <div className="container-fluid rightBorder">
                 <div className="row">
@@ -78,9 +80,32 @@ class Post extends Component {
                 </div>
               </div>
             </div>
-            {/* Einde 3de kolom */}
+            {/* Einde 2de kolom */}
           </div>
         </Link>
+        <div className="d-flex flex-row align-items-center postBorder ">
+          <FontAwesomeIcon
+            style={{
+              // color: "white",
+              // border: "1px solid black",
+              fontSize: "3em",
+            }}
+            icon={faComment}
+            mask={["far", "circle"]}
+          ></FontAwesomeIcon>
+          <span>{post.comments_count}</span>
+          <FontAwesomeIcon
+            style={{
+              // color: "white",
+              // border: "1px solid black",
+              fontSize: "2em",
+            }}
+            icon={faClock}
+            mask={["far", "circle"]}
+          ></FontAwesomeIcon>
+          {/* {post.created_at} */}
+          <span>{moment.utc(post.created_at).fromNow()}</span>
+        </div>
       </div>
     );
   }

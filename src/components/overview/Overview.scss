@@ -1,7 +1,3 @@
-$backgroundColor: #eeeeee;
-body {
-  background-color: $backgroundColor;
-}
 .overviewContainer {
   .postsNav {
     padding: 20px 0;
@@ -16,10 +12,6 @@ body {
     padding: 20px;
   }
   .postsContainer {
-    [class*="col"] {
-      border-right: 1px solid black;
-      border-bottom: 1px dashed rgba(0, 0, 0, 0.2);
-    }
     .postsHeader {
       .headerItem {
         // border-right: 1px solid black;

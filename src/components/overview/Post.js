@@ -45,7 +45,9 @@ class Post extends Component {
                   <div className="col-xl-6 noRightBorder">
                     <div className="post-commentscount">
                       Comments:
-                      {post.comments_count}
+                      {post.comments_count === undefined
+                        ? "0"
+                        : post.comments_count}
                     </div>
                     <div className="post-time">
                       Posted {moment.utc(post.created_at).fromNow()}
@@ -93,7 +95,9 @@ class Post extends Component {
             icon={faComment}
             mask={["far", "circle"]}
           ></FontAwesomeIcon>
-          <span>{post.comments_count}</span>
+          <span>
+            {post.comments_count === undefined ? "0" : post.comments_count}
+          </span>
           <FontAwesomeIcon
             style={{
               // color: "white",

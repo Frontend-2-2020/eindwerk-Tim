@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import moment from "moment";
+import "moment/locale/nl-be";
+moment.locale("nl-be");
 
 export default class Comment extends Component {
   render() {
@@ -8,24 +11,31 @@ export default class Comment extends Component {
         <div class="col-md-8">
           <div className="showcase">
             <div class="nes-container with-title">
-              <div class="card-body container">
+              <h2 className="title">
+                Author: {comment.user.first_name} {comment.user.last_name}
+              </h2>
+              <div class="container">
                 <div
-                  className="row justify-content-md-center"
+                  className="row card-body"
                   // style={{ maxWidth: 100 }}
                 >
-                  <img
-                    src={comment.user.avatar}
-                    alt="..."
-                    class="img-fluid"
-                  ></img>
+                  <div className="avatar col-2">
+                    <img
+                      src={comment.user.avatar}
+                      alt="..."
+                      class="img-fluid"
+                    ></img>
+                  </div>
+                  <div className="body col-10">
+                    <p
+                      class="card-text"
+                      dangerouslySetInnerHTML={{ __html: comment.body }}
+                    ></p>
+                  </div>
                 </div>
-                <p
-                  class="card-text"
-                  dangerouslySetInnerHTML={{ __html: comment.body }}
-                ></p>
-                <a href="#" class="btn btn-primary">
-                  Go somewhere
-                </a>
+                <div className="card-footer">
+                  {comment && moment.utc(comment.created_at).format("LLL")}
+                </div>
               </div>
             </div>
           </div>

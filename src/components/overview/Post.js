@@ -5,6 +5,7 @@ import moment from "moment";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
 import { faComment } from "@fortawesome/free-solid-svg-icons";
+import { faThumbsUp } from "@fortawesome/free-solid-svg-icons";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { deletePost } from "../../redux/actions/postsActions";
@@ -19,12 +20,12 @@ class Post extends Component {
     return (
       <div className="post-terminal">
         <div className="row postHeader">
-          <div className="col-md-8 noRightBorder">
+          <div className="col-md-8">
             <Link to={`/user/${post.user_id}`}>
               <span className="userLink">{post.user.email}</span>
             </Link>
           </div>
-          <div className="col-md-4 col-xl-4 noRightBorder"></div>
+          <div className="col-md-4 col-xl-4"></div>
         </div>
 
         <Link to={`/post/${post.id}`}>
@@ -39,10 +40,10 @@ class Post extends Component {
             </div>
             {/* Einde 1ste kolom */}
             {/* Begin 2de kolom */}
-            <div className="col-md-4 col-xl-4 noRightBorder">
-              <div className="container-fluid rightBorder">
+            <div className="col-md-4 col-xl-4 ">
+              <div className="container-fluid">
                 <div className="row">
-                  <div className="col-xl-6 noRightBorder">
+                  <div className="col-xl-6 ">
                     <div className="post-commentscount">
                       Comments:
                       {post.comments_count === undefined
@@ -53,7 +54,7 @@ class Post extends Component {
                       Posted {moment.utc(post.created_at).fromNow()}
                     </div>
                   </div>
-                  <div className="col-xl-6 noRightBorder">
+                  <div className="col-xl-6 ">
                     {post && user && post.user_id === user.id ? (
                       <div className="button">
                         <div className="button1">
@@ -92,6 +93,15 @@ class Post extends Component {
               // border: "1px solid black",
               fontSize: "3em",
             }}
+            icon={faThumbsUp}
+          ></FontAwesomeIcon>
+          <span>{post.likes_count === undefined ? "0" : post.likes_count}</span>
+          <FontAwesomeIcon
+            style={{
+              // color: "white",
+              // border: "1px solid black",
+              fontSize: "2.5em",
+            }}
             icon={faComment}
             mask={["far", "circle"]}
           ></FontAwesomeIcon>
@@ -107,6 +117,7 @@ class Post extends Component {
             icon={faClock}
             mask={["far", "circle"]}
           ></FontAwesomeIcon>
+
           {/* {post.created_at} */}
           <span>{moment.utc(post.created_at).fromNow()}</span>
         </div>

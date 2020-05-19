@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import { API } from "../../API";
 import moment from "moment";
+import "moment/locale/nl-be";
 import { Link } from "react-router-dom";
 import Comment from "./Comment";
 
 import "./PostDetail.scss";
-import "moment/locale/nl-be";
+
 moment.locale("nl-be");
 
 export default class PostDetail extends Component {
@@ -25,7 +26,7 @@ export default class PostDetail extends Component {
               <div className="nes-container with-title">
                 <h2 className=" title">
                   PID:{this.props.match.params.postId} / Created:
-                  {post && moment.utc(post.created_at).format("LLL")}
+                  {post && moment.utc(post.created_at).fromNow()}
                 </h2>
                 <div className="p-3">
                   <img
@@ -48,7 +49,7 @@ export default class PostDetail extends Component {
                   </Link>
                 </div>
                 <div class="card-footer text-muted">
-                  {post && moment.utc(post.created_at).fromNow()}
+                  {post && moment.utc(post.created_at).format("LLL")}
                 </div>
               </div>
             </div>

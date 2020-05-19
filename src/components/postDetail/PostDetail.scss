@@ -1,24 +1,31 @@
 $backgroundColor: #eeeeee;
-
 .avatar {
   max-width: 100px;
   border-radius: 50%;
 }
-
-.nes-container {
-  .title {
-    background-color: $backgroundColor !important;
+.showcase {
+  .nes-container {
+    .title {
+      background-color: $backgroundColor !important;
+    }
+    > div {
+      border-bottom: 1px dashed rgba(0, 0, 0, 0.2);
+    }
+    img {
+      width: 100%;
+      height: auto;
+    }
   }
-}
 
-.nes-container {
-  // background-color: transparent;
+  .nes-container {
+    // background-color: transparent;
 
-  margin-bottom: 25px;
-  border: 2px solid #000;
-  // outline: 1px dashed #000;
-  outline-offset: -5px;
-  position: relative;
-  border-image-source: url("http://i.stack.imgur.com/wLdVc.png");
-  border-image-slice: 0.5;
+    margin-bottom: 25px;
+    border: 2px solid #000;
+    // outline: 1px dashed #000;
+    outline-offset: -5px;
+    position: relative;
+    border-image-source: url("http://i.stack.imgur.com/wLdVc.png");
+    border-image-slice: 0.5;
+  }
 }

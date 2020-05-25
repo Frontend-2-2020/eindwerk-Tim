@@ -87,7 +87,7 @@ class Overview extends Component {
               <NewPost
                 selectedPost={this.state.selectedPost}
                 hideHandler={() => this.setState({ showAddPost: false })}
-                buttonText="Bevestigen"
+                buttonText="OK"
               ></NewPost>
             ) : (
               ""

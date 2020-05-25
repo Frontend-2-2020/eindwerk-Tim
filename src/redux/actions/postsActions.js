@@ -1,5 +1,4 @@
-import { API, TOKEN } from "../../API";
-import Axios from "axios";
+import { API } from "../../API";
 
 export const getPosts = (selectedPage) => async (dispatch) => {
   const res = await API.get(`api/posts?page=${selectedPage}`);

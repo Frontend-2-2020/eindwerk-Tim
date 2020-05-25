@@ -64,7 +64,7 @@ class Post extends Component {
                               this.props.changePostHandler(e, post)
                             }
                           >
-                            edit
+                            {"!="}
                           </button>
                         </div>
                         <div className="button2">
@@ -72,7 +72,7 @@ class Post extends Component {
                             className="btn btn-block nes-btn is-error"
                             onClick={(e) => this.props.deletePost(e, post.id)}
                           >
-                            delete
+                            {"X"}
                           </button>
                         </div>
                       </div>

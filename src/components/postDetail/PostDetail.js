@@ -6,24 +6,52 @@ import { Link } from "react-router-dom";
 import Comment from "./Comment";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faThumbsUp } from "@fortawesome/free-solid-svg-icons";
+import { connect } from "react-redux";
+import { like, unlike } from "../../redux/actions/postsActions";
+
 import "./PostDetail.scss";
-import Post from "../overview/Post";
 
 moment.locale("nl-be");
 
-export default class PostDetail extends Component {
+class PostDetail extends Component {
   state = {};
   componentDidMount() {
     API.get(`/api/posts/${this.props.match.params.postId}`).then((res) => {
       this.setState({ post: res.data });
     });
   }
+
+  likeHandler = () => {
+    const { user } = this.props;
+    const { post } = this.state;
+    let arrayPosition = undefined;
+
+    // Kijken of er een like is, en op welke plaats hij in de likes-array zit
+    for (let i = 0; i < post.likes.length; i++) {
+      if (post.likes[i].user.id === user.id) {
+        arrayPosition = i;
+      }
+    }
+    // Als er nog geen like is maak dan 1 aan
+    if (arrayPosition === undefined) {
+      // user.user_id = user.id;
+      post.likes.push({ user });
+      this.props.like(post);
+    } else {
+      // indien wel al een like, verwijder hem uit de array
+      post.likes.splice(arrayPosition, 1);
+      this.props.unlike(post);
+    }
+    this.setState({ post });
+  };
+
   render() {
     const { post } = this.state;
+    const { user } = this.props;
     return (
       <div className="container-xl ">
         <div className="row justify-content-center">
-          <div class="col-md-8 mt-3">
+          <div className="col-md-8 mt-3">
             <div className="showcase">
               <div className="nes-container with-title">
                 <h2 className=" title">
@@ -40,55 +68,59 @@ export default class PostDetail extends Component {
                     {post && post.user.first_name} {post && post.user.last_name}
                   </div>
                 </div>
-                <div class="card-body">
-                  <h5 class="card-title">{post && post.title}</h5>
+                <div className="card-body">
+                  <h5 className="card-title">{post && post.title}</h5>
                   <p
-                    class="card-text"
+                    className="card-text"
                     dangerouslySetInnerHTML={{ __html: post && post.body }}
                   ></p>
-                  <p>
-                    Likes:{" "}
-                    {/* {post && post.likes.length === undefined
-                      ? "0"
-                      : post.likes.length} */}
-                  </p>
-                  {/* <button className="btn nes-btn float-right">
-                    add comment
-                  </button>
-                  <Link to="/">
-                    <button className="btn nes-btn float-right">
-                      Terug naar overzicht
-                    </button>
-                  </Link> */}
                 </div>
                 <div className="container">
                   <div className="row justify-content-end">
                     {/* Like Button START */}
-                    <div className="col-sm-2">
-                      <button className="btn-block nes-btn">
-                        <FontAwesomeIcon
-                          style={{
-                            marginBottom: "3px",
-                            // color: "white",
-                            // border: "1px solid black",
-                            // fontSize: "3em",
-                          }}
-                          icon={faThumbsUp}
-                        ></FontAwesomeIcon>
-                      </button>
-                    </div>
+                    {post && user ? (
+                      <div className="col-sm-2">
+                        <button
+                          onClick={this.likeHandler}
+                          className="btn-block nes-btn"
+                        >
+                          <FontAwesomeIcon
+                            style={{
+                              marginBottom: "3px",
+                              // color: "white",
+                              // border: "1px solid black",
+                              // fontSize: "3em",
+                            }}
+                            icon={faThumbsUp}
+                          ></FontAwesomeIcon>{" "}
+                          {post && post.likes.length}
+                        </button>
+                      </div>
+                    ) : (
+                      ""
+                    )}
                     {/* Like Button END */}
-                    <div className="col-sm-2">
-                      <button className="btn-block nes-btn">{"+"}</button>
-                    </div>
+                    {/* Comment Button START */}
+                    {post && user ? (
+                      <div className="col-sm-2">
+                        <button className="btn-block nes-btn">{"+"}</button>
+                      </div>
+                    ) : (
+                      ""
+                    )}
+                    {/* Comment Button END */}
+                    {/* Back Button START */}
                     <div className="col-sm-3">
                       <Link to="/">
-                        <button className="btn-block nes-btn">{"<--"}</button>
+                        <button className="btn-block nes-btn is-primary">
+                          {"<--"}
+                        </button>
                       </Link>
                     </div>
+                    {/* Back Button END */}
                   </div>
                 </div>
-                <div class="card-footer text-muted">
+                <div className="card-footer text-muted">
                   {post && moment.utc(post.created_at).local().format("LLL")}
                 </div>
               </div>
@@ -96,13 +128,13 @@ export default class PostDetail extends Component {
           </div>
         </div>
         <div className="row justify-content-center comment">
-          <div class="col-md-8">
+          <div className="col-md-8">
             <div className="showcase">
-              <div class="nes-container with-title">
+              <div className="nes-container with-title">
                 <h2 className="title">Comments</h2>
                 {post &&
                   post.comments.map((comment) => (
-                    <Comment comment={comment}></Comment>
+                    <Comment key={comment.id} comment={comment}></Comment>
                   ))}
               </div>
             </div>
@@ -112,3 +144,16 @@ export default class PostDetail extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return { user: state.auth.user };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    like: (post) => dispatch(like(post)),
+    unlike: (post) => dispatch(unlike(post)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostDetail);

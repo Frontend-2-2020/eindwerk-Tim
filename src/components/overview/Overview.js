@@ -27,7 +27,7 @@ class Overview extends Component {
   changePostHandler = (e, post) => {
     e.preventDefault();
     // e.stopPropagation();
-    console.log(post);
+    // console.log(post);
     this.setState({ selectedPost: post });
     this.setState({ showAddPost: true });
     // document.documentElement.scrollTop = 0;

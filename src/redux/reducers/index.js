@@ -6,5 +6,4 @@ import commentsReducer from "./commentsReducer";
 export default combineReducers({
   auth: authReducer,
   posts: postsReducer,
-  comments: commentsReducer,
 });

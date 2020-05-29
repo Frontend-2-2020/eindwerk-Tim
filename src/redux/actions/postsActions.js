@@ -40,14 +40,14 @@ export const deletePost = (e, postId) => (dispatch) => {
 };
 
 export const like = (post) => (dispatch) => {
-  console.log("liked " + post.id);
+  // console.log("liked " + post.id);
   API.post(`/api/posts/${post.id}/like`).then((res) => {
     dispatch({ type: "LIKE_POST", payload: post });
   });
 };
 
 export const unlike = (post) => (dispatch) => {
-  console.log("unliked " + post.id);
+  // console.log("unliked " + post.id);
   API.post(`/api/posts/${post.id}/unlike`).then((res) => {
     dispatch({ type: "UNLIKE_POST", payload: post });
   });

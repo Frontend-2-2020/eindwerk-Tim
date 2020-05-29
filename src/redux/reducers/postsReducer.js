@@ -22,35 +22,42 @@ function postsReducer(state = initialstate, action) {
       return newState;
 
     case "LIKE_POST":
-      console.log(payload);
       selectedPost = payload;
       newState = { ...state };
       newState.data = state.data.map((post) => {
         if (post.id === selectedPost.id) {
           post.likes_count += 1;
-          console.log(post.likes_count);
         }
         return post;
       });
       return newState;
     case "UNLIKE_POST":
       // console.log(this.state.user);
-      console.log(payload);
       newState = { ...state };
       selectedPost = payload;
       newState.data = state.data.map((post) => {
         if (post.id === selectedPost.id) {
           post.likes_count -= 1;
-          console.log(post.likes_count);
         }
         return post;
       });
-      console.log(newState);
       return newState;
     case "DELETE_POST":
-      newPosts = state.data.filter((object) => object.id !== payload);
+      newPosts = state.data.filter((post) => post.id !== payload);
       newState = { ...state };
       newState.data = newPosts;
+      return newState;
+    case "ADD_COMMENT":
+      console.log(payload);
+      newState = { ...state };
+      newState.data = state.data.map((post) => {
+        if (post.id === payload.blog_post_id) {
+          post.comments.push(payload);
+        }
+        return post;
+      });
+      // let post = state.data.filter((post) => post.id == payload.blog_post_id);
+      // post.comments.push(payload);
       return newState;
     default:
       return state;

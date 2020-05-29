@@ -28,6 +28,7 @@ class NewPost extends Component {
   }
 
   getDummyText() {
+    // om te disabelen, onderstaande axios call in commentaar zetten
     axios.get("https://cat-fact.herokuapp.com/facts").then((res) => {
       let indexValue = Math.floor(Math.random() * res.data.all.length);
       this.setState({ title: "Cat Fact", body: res.data.all[indexValue].text });

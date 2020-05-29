@@ -20,17 +20,12 @@ export const newComment = (values, user, postId, handleResult) => (
   });
 };
 
-export const editComment = (
-  values,
-  user,
-  selectedComment,
-  postId,
-  handleResult
-) => (dispatch) => {
+export const editComment = (values, user, selectedComment, handleResult) => (
+  dispatch
+) => {
   console.log(selectedComment);
   API.put(`api/comments/${selectedComment.id}`, {
-    values,
-    blog_post_id: postId,
+    body: values.body,
   }).then((res) => {
     res.data.user = user;
     handleResult(res.data);

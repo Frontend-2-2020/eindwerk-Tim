@@ -32,23 +32,40 @@ class PostDetail extends Component {
     });
   }
 
-  addCommentHandler = (values) => {
+  // callback wanneer het formulier wordt ingediend
+  addCommentResultHandler = (result) => {
     let newPost = { ...this.state.post };
-    newPost.comments = [values, ...newPost.comments];
+    newPost.comments = [result, ...newPost.comments];
     this.setState({ post: newPost });
   };
 
+  // // callback wanneer het formulier wordt ingediend
+  // editCommentResultHandler = (result) => {
+  //   console.log(result);
+  //   let newPost = { ...this.state.post };
+  //   let newComments = this.state.post.comments.map((comment) =>
+  //     comment.id === result.id ? result : comment
+  //   );
+  //   newPost.comments = newComments;
+  // };
+
+  // Wanneer er op de editknop geklikt wordt
   editCommentHandler = (e, selectedComment) => {
-    console.log(selectedComment);
     this.setState({ selectedComment });
     this.setState({ showAddComment: true });
-    let newComments = [...this.state.post.comments];
-    let editPost = { ...this.state.post };
-    let editComment = this.state.post.comments.filter((comment) => {});
-    newComments.map((comment) =>
-      comment.id === selectedComment.id ? selectedComment : comment
-    );
   };
+
+  // callback wanneer het formulier wordt ingediend
+  editCommentResultHandler = (result) => {
+    console.log(result);
+    let newPost = { ...this.state.post };
+    let newComments = this.state.post.comments.map((comment) =>
+      comment.id === result.id ? result : comment
+    );
+    newPost.comments = newComments;
+    this.setState({ post: newPost });
+  };
+
   deleteCommentHandler = (selectedComment) => {
     // console.log(selectedComment);
     let newPost = { ...this.state.post };
@@ -196,7 +213,12 @@ class PostDetail extends Component {
                     selectedComment={this.state.selectedComment}
                     postId={post.id}
                     hideHandler={() => this.setState({ showAddComment: false })}
-                    addHandler={(values) => this.addCommentHandler(values)}
+                    addResultHandler={(values) =>
+                      this.addCommentResultHandler(values)
+                    }
+                    editResultHandler={(values) =>
+                      this.editCommentResultHandler(values)
+                    }
                     buttonText="OK"
                   ></NewComment>
                 </div>

@@ -32,31 +32,28 @@ class NewComment extends Component {
 
   getDummyText() {
     // om te disabelen, onderstaande axios call in commentaar zetten
-    // axios.get("https://cat-fact.herokuapp.com/facts").then((res) => {
-    //   let indexValue = Math.floor(Math.random() * res.data.all.length);
-    //   this.setState({ body: res.data.all[indexValue].text });
-    //   // setFieldValue("body", res.data.all[0].text);
-    // });
+    axios.get("https://cat-fact.herokuapp.com/facts").then((res) => {
+      let indexValue = Math.floor(Math.random() * res.data.all.length);
+      this.setState({ body: res.data.all[indexValue].text });
+      // setFieldValue("body", res.data.all[0].text);
+    });
   }
 
   submitHandler = (values) => {
     const { user, selectedComment, postId } = this.props;
     const newCommentResponse = {};
-    const handleResult = (values) => {
+    const handleAddResult = (values) => {
       // console.log(values);
-      this.props.addHandler(values);
+      this.props.addResultHandler(values);
+    };
+    const handleEditResult = (values) => {
+      this.props.editResultHandler(values);
     };
     if (this.props.selectedComment) {
-      this.props.editComment(
-        values,
-        user,
-        selectedComment,
-        postId,
-        handleResult
-      );
+      this.props.editComment(values, user, selectedComment, handleEditResult);
     } else {
       // New comment aanmken + callback om result door te geven naar postdetail
-      this.props.newComment(values, user, postId, handleResult);
+      this.props.newComment(values, user, postId, handleAddResult);
     }
     // console.log(newCommentResponse);
     this.props.hideHandler();

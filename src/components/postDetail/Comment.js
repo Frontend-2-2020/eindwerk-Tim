@@ -8,7 +8,7 @@ moment.locale("nl-be");
 
 class Comment extends Component {
   deleteHandler = (e, comment) => {
-    this.props.deleteComment(e, comment.id);
+    this.props.deleteComment(e, comment);
     this.props.deleteHandler(comment);
   };
   render() {

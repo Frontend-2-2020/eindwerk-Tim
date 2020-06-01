@@ -52,12 +52,20 @@ function postsReducer(state = initialstate, action) {
       newState = { ...state };
       newState.data = state.data.map((post) => {
         if (post.id === payload.blog_post_id) {
-          post.comments.push(payload);
+          post.comments_count += 1;
         }
         return post;
       });
-      // let post = state.data.filter((post) => post.id == payload.blog_post_id);
-      // post.comments.push(payload);
+      return newState;
+    case "DELETE_COMMENT":
+      console.log(payload);
+      newState = { ...state };
+      newState.data = state.data.map((post) => {
+        if (post.id === payload.blog_post_id) {
+          post.comments_count -= 1;
+        }
+        return post;
+      });
       return newState;
     default:
       return state;

@@ -16,7 +16,7 @@ export const newComment = (values, user, postId, handleResult) => (
     res.data.user = user;
     // return res.data;
     handleResult(res.data);
-    // dispatch({ type: "ADD_COMMENT", payload: res.data });
+    dispatch({ type: "ADD_COMMENT", payload: res.data });
   });
 };
 
@@ -33,10 +33,10 @@ export const editComment = (values, user, selectedComment, handleResult) => (
   });
 };
 
-export const deleteComment = (e, commentId) => (dispatch) => {
+export const deleteComment = (e, comment) => (dispatch) => {
   e.preventDefault();
-  // console.log("commentid = " + commentId);
-  API.delete(`api/comments/${commentId}`).then((res) => {
-    dispatch({ type: "DELETE_COMMENT", payload: commentId });
+  console.log("commentid = " + comment.id);
+  API.delete(`api/comments/${comment.id}`).then((res) => {
+    dispatch({ type: "DELETE_COMMENT", payload: comment });
   });
 };

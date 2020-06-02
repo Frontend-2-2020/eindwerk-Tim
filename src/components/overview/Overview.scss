@@ -1,5 +1,7 @@
+$backgroundColor: #eeeeee;
 .overviewContainer {
   .postsNav {
+    overflow: hidden;
     padding: 20px 0;
     .addIcon {
       font-size: 2.5em;
@@ -27,5 +29,15 @@
     .rightBorder {
       border-right: 1px solid black;
     }
+  }
+  .lastComments {
+    overflow: hidden;
+    margin-top: 50px;
+    .title {
+      background-color: $backgroundColor !important;
+    }
+  }
+  .searchbar {
+    padding: 15px;
   }
 }

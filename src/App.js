@@ -1,8 +1,8 @@
 import React, { Component, Suspense, lazy } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { getPosts } from "./redux/actions/postsActions";
+import { getPosts, getAllPosts } from "./redux/actions/postsActions";
 import { getUser } from "./redux/actions/authActions";
-import { TOKEN } from "./API";
+import { API, TOKEN } from "./API";
 import { connect } from "react-redux";
 import Navbar from "./components/Navbar";
 
@@ -20,13 +20,25 @@ const PostDetail = lazy(() => import("./components/postDetail/PostDetail"));
 const User = lazy(() => import("./components/user/User"));
 
 class App extends Component {
+  state = { allPosts: [] };
   componentDidMount() {
-    this.props.getposts(1);
+    // const getAllPosts = (pageCount) => {
+    //   let allPosts = [];
+    //   for (let i = 0; i < pageCount; i++) {
+    //     API.get(`api/posts?page=${i}`).then((res) => {
+    //       allPosts = [...allPosts, ...res.data.data];
+    //       this.setState({ allPosts });
+    //     });
+    //   }
+    // };
+
+    this.props.getposts(1, this.props.getAllPosts);
 
     if (TOKEN) {
       this.props.setUserData();
     }
   }
+
   render() {
     return (
       <div>
@@ -59,8 +71,10 @@ class App extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getposts: (pagenumber) => dispatch(getPosts(pagenumber)),
+    getposts: (pagenumber, getAllPosts) =>
+      dispatch(getPosts(pagenumber, getAllPosts)),
     setUserData: () => dispatch(getUser()),
+    getAllPosts: (pageCount) => dispatch(getAllPosts(pageCount)),
   };
 };
 

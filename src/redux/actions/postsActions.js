@@ -1,34 +1,48 @@
 import { API } from "../../API";
 
-export const getPosts = (selectedPage) => async (dispatch) => {
-  const res = await API.get(`api/posts?page=${selectedPage}`);
-  dispatch({ type: "SET_POSTS", payload: res.data });
+// export const getPosts = (selectedPage) => async (dispatch) => {
+//   const res = await API.get(`api/posts?page=${selectedPage}`);
+//   dispatch({ type: "SET_POSTS", payload: res.data });
+// };
+
+export const getPosts = (selectedPage, getAllPosts) => (dispatch) => {
+  API.get(`api/posts?page=${selectedPage}`).then((res) => {
+    dispatch({ type: "SET_POSTS", payload: res.data });
+    // console.log(res.data.last_page);
+    getAllPosts(res.data.last_page);
+  });
 };
 
+export const getAllPosts = (pageCount) => (dispatch) => {
+  let allPosts = [];
+  for (let i = 0; i < pageCount; i++) {
+    API.get(`api/posts?page=${i}`).then((res) => {
+      allPosts = [...allPosts, ...res.data.data];
+      // this.setState({ allPosts });
+      dispatch({ type: "SET_ALL_POSTS", payload: allPosts });
+    });
+    // dispatch({ type: "SET_ALL_POSTS", payload: allPosts });
+  }
+};
+
+// export const getPosts = (selectedPage) => (dispatch) => {
+//   API.get(`api/posts?page=${selectedPage}`).then((res) => {
+//     dispatch({ type: "SET_POSTS", payload: res.data });
+//   });
+// };
+
 export const newPost = (values, user) => (dispatch) => {
-  // console.log(values);
   API.post(`api/posts`, values).then((res) => {
     res.data.user = user;
     dispatch({ type: "ADD_POST", payload: res.data });
   });
-  // const res = await Axios.post(`https://eindwerk.jnnck.be/api/posts`, values, {
-  //   headers: {
-  //     Authorization: `Bearer ${TOKEN}`,
-  //   },
-  // });
 };
 
 export const editPost = (values, user, selectedPost) => (dispatch) => {
-  console.log(selectedPost);
   API.put(`api/posts/${selectedPost.id}`, values).then((res) => {
     res.data.user = user;
     dispatch({ type: "EDIT_POST", payload: res.data });
   });
-  // const res = await Axios.post(`https://eindwerk.jnnck.be/api/posts`, values, {
-  //   headers: {
-  //     Authorization: `Bearer ${TOKEN}`,
-  //   },
-  // });
 };
 
 export const deletePost = (e, postId) => (dispatch) => {

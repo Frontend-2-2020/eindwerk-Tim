@@ -16,6 +16,10 @@ export const ellipsify = (str) => {
   }
 };
 
+export function ucfirst(string) {
+  return string.toLowerCase() + string.slice(1);
+}
+
 export const timeDiff = (timestamp) => {
   const worker = moment.duration(timestamp);
   if (worker._data.days > 0) {

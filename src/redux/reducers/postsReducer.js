@@ -9,6 +9,10 @@ function postsReducer(state = initialstate, action) {
   switch (type) {
     case "SET_POSTS":
       return payload;
+    case "SET_ALL_POSTS":
+      newState = { ...state };
+      newState.allPosts = payload;
+      return newState;
     case "ADD_POST":
       newState = { ...state };
       newState.data = [payload, ...state.data];

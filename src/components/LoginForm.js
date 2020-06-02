@@ -7,20 +7,19 @@ import { getUser } from "../redux/actions/authActions";
 
 class LoginForm extends Component {
   state = { redirect: false };
-  submitHandler = values => {
+  submitHandler = (values) => {
     this.login(values);
-    // console.log(values);
     this.setState({ redirect: true });
   };
 
-  login = values => {
+  login = (values) => {
     API.post("oauth/token", {
       grant_type: "password",
       client_id: 2,
       client_secret: "iwrHFPcaiQ3bZTzHEwQpYkpiuHUlbIOJ9SAI6DLI",
       username: values.email,
-      password: values.password
-    }).then(response => {
+      password: values.password,
+    }).then((response) => {
       window.localStorage.setItem(
         "EINDWERK_LOGIN_OAUTHTOKEN",
         response.data.access_token
@@ -44,7 +43,7 @@ class LoginForm extends Component {
         validate={this.validate}
         initialValues={{
           email: "tim@test.com",
-          password: "test"
+          password: "test",
         }}
       >
         <Form>
@@ -80,13 +79,13 @@ class LoginForm extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return { user: state.auth };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    setUserData: () => dispatch(getUser())
+    setUserData: () => dispatch(getUser()),
   };
 };
 

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { API } from "../../API";
+import { Link } from "react-router-dom";
 
 import "./User.scss";
 
@@ -35,6 +36,9 @@ export default class User extends Component {
             {user.blog_posts.reverse().map((post) => (
               <li class="">
                 <span>{post.created_at} - </span>
+                <span>
+                  <Link to={`/post/${post.id}`}>{post.id}</Link> -{" "}
+                </span>
                 <span className="title">{post.title} - </span>
                 {/* <span
                 className="body"
@@ -51,7 +55,13 @@ export default class User extends Component {
           <ul class="pl-3">
             {user.comments.reverse().map((comment) => (
               <li class="">
-                <span>{comment.created_at} - </span>
+                <span>{comment.created_at}</span> -{" "}
+                <span>
+                  <Link to={`/post/${comment.blog_post_id}`}>
+                    {comment.blog_post_id}
+                  </Link>{" "}
+                  -{" "}
+                </span>
                 <span>{comment.body}</span>
               </li>
             ))}

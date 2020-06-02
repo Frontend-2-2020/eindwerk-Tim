@@ -6,7 +6,7 @@ import {
   faPlusCircle,
   faCommentDollar,
 } from "@fortawesome/free-solid-svg-icons";
-import { API } from "../../API";
+import { Link } from "react-router-dom";
 
 import "./Overview.scss";
 

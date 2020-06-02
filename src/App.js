@@ -2,7 +2,7 @@ import React, { Component, Suspense, lazy } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { getPosts, getAllPosts } from "./redux/actions/postsActions";
 import { getUser } from "./redux/actions/authActions";
-import { API, TOKEN } from "./API";
+import { TOKEN } from "./API";
 import { connect } from "react-redux";
 import Navbar from "./components/Navbar";
 

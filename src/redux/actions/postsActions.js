@@ -5,11 +5,13 @@ import { API } from "../../API";
 //   dispatch({ type: "SET_POSTS", payload: res.data });
 // };
 
-export const getPosts = (selectedPage, getAllPosts) => (dispatch) => {
+export const getPosts = (selectedPage, source, getAllPosts) => (dispatch) => {
   API.get(`api/posts?page=${selectedPage}`).then((res) => {
     dispatch({ type: "SET_POSTS", payload: res.data });
     // console.log(res.data.last_page);
-    getAllPosts(res.data.last_page);
+    if (source === "app") {
+      getAllPosts(res.data.last_page);
+    }
   });
 };
 

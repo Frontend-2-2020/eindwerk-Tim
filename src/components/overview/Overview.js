@@ -30,8 +30,18 @@ class Overview extends Component {
   // }
 
   componentDidMount() {
+    console.log("componentdidmount");
     this.setState({ posts: this.props.posts });
     this.getComments();
+  }
+
+  componentDidUpdate(prevprops) {
+    if (prevprops.posts !== this.props.posts) {
+      this.setState({ posts: this.props.posts });
+    }
+    if (prevprops.user !== this.props.user) {
+      this.setState({ showAddPost: false });
+    }
   }
 
   filterPosts = (e) => {
@@ -62,12 +72,6 @@ class Overview extends Component {
     };
     const comments = this.props.getComments(handleComments);
   };
-
-  componentDidUpdate(prevprops) {
-    if (prevprops.user !== this.props.user) {
-      this.setState({ showAddPost: false });
-    }
-  }
 
   changePostHandler = (e, post) => {
     e.preventDefault();
@@ -102,7 +106,7 @@ class Overview extends Component {
                       currentPage={postsHeader.current_page}
                       pageCount={postsHeader.last_page}
                       newPageHandler={(pageNumber) =>
-                        this.props.getPosts(pageNumber)
+                        this.props.getPosts(pageNumber, undefined, undefined)
                       }
                     ></Pagination>
                   </div>

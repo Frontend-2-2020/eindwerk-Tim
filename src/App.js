@@ -32,7 +32,7 @@ class App extends Component {
     //   }
     // };
 
-    this.props.getposts(1, this.props.getAllPosts);
+    this.props.getposts(1, "app", this.props.getAllPosts);
 
     if (TOKEN) {
       this.props.setUserData();
@@ -71,8 +71,8 @@ class App extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getposts: (pagenumber, getAllPosts) =>
-      dispatch(getPosts(pagenumber, getAllPosts)),
+    getposts: (pagenumber, source, getAllPosts) =>
+      dispatch(getPosts(pagenumber, source, getAllPosts)),
     setUserData: () => dispatch(getUser()),
     getAllPosts: (pageCount) => dispatch(getAllPosts(pageCount)),
   };

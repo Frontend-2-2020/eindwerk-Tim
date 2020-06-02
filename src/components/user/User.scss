@@ -1,0 +1,17 @@
+.userInfo {
+  .avatar {
+    max-height: 200px;
+    object-fit: cover;
+    object-position: 5% 50%;
+  }
+  ul {
+    // padding: 10px;
+    list-style-type: none;
+    li {
+      font-size: 0.6em;
+      .title {
+        font-weight: bold;
+      }
+    }
+  }
+}

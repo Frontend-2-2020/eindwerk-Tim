@@ -32,44 +32,20 @@ class Overview extends Component {
   componentDidMount() {
     this.setState({ posts: this.props.posts });
     this.getComments();
-
-    // this.getAllPosts(this.props.posts.last_page);
-
-    // this.props.getposts(1, getAllPosts);
   }
-
-  componentDidUpdate(prevprops) {
-    if (prevprops.posts !== this.props.posts) {
-      console.log("componentdidupdate");
-      this.getAllPosts(this.props.posts.last_page);
-    }
-  }
-
-  getAllPosts = (pageCount) => {
-    let allPosts = [];
-    for (let i = 0; i < pageCount; i++) {
-      API.get(`api/posts?page=${i}`).then((res) => {
-        allPosts = [...allPosts, ...res.data.data];
-        this.setState({ allPosts });
-      });
-    }
-  };
 
   filterPosts = (e) => {
-    console.log(e.target.value);
     const { allPosts } = this.props.posts;
     const newPosts = { ...this.props.posts };
     const searchString = e.target.value;
     if (searchString !== "") {
       let filteredPosts = allPosts.filter(
-        (post) => ucfirst(post.title).indexOf(searchString) !== -1
+        (post) => post.title.toLowerCase().indexOf(searchString) !== -1
       );
       newPosts.data = filteredPosts;
       newPosts.last_page = 1;
-      console.log(newPosts);
       this.setState({ posts: newPosts });
     } else {
-      console.log("searchString");
       this.setState({ posts: this.props.posts });
     }
   };
@@ -153,7 +129,7 @@ class Overview extends Component {
                   </div>
                 </div>
                 <div className="row searchbar">
-                  <label htmlFor="search">Search:</label>
+                  <label htmlFor="search">Search title:</label>
                   <input
                     onChange={(e) => this.filterPosts(e)}
                     type="text"

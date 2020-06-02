@@ -47,21 +47,18 @@ export const editPost = (values, user, selectedPost) => (dispatch) => {
 
 export const deletePost = (e, postId) => (dispatch) => {
   e.preventDefault();
-  // console.log("postid = " + postId);
   API.delete(`api/posts/${postId}`).then((res) => {
     dispatch({ type: "DELETE_POST", payload: postId });
   });
 };
 
 export const like = (post) => (dispatch) => {
-  // console.log("liked " + post.id);
   API.post(`/api/posts/${post.id}/like`).then((res) => {
     dispatch({ type: "LIKE_POST", payload: post });
   });
 };
 
 export const unlike = (post) => (dispatch) => {
-  // console.log("unliked " + post.id);
   API.post(`/api/posts/${post.id}/unlike`).then((res) => {
     dispatch({ type: "UNLIKE_POST", payload: post });
   });

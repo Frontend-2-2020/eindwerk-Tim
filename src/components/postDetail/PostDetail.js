@@ -105,7 +105,7 @@ class PostDetail extends Component {
     const { post, checkLiked } = this.state;
     const { user } = this.props;
     return (
-      <div className="container-xl ">
+      <div className="container-xl postDetail">
         <div className="row justify-content-center">
           <div className="col-md-8 mt-3">
             <div className="showcase">

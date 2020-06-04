@@ -39,16 +39,6 @@ class PostDetail extends Component {
     this.setState({ post: newPost });
   };
 
-  // // callback wanneer het formulier wordt ingediend
-  // editCommentResultHandler = (result) => {
-  //   console.log(result);
-  //   let newPost = { ...this.state.post };
-  //   let newComments = this.state.post.comments.map((comment) =>
-  //     comment.id === result.id ? result : comment
-  //   );
-  //   newPost.comments = newComments;
-  // };
-
   // Wanneer er op de editknop geklikt wordt
   editCommentHandler = (e, selectedComment) => {
     this.setState({ selectedComment });

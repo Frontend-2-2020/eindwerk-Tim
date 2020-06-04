@@ -30,7 +30,6 @@ class Overview extends Component {
   // }
 
   componentDidMount() {
-    console.log("componentdidmount");
     this.setState({ posts: this.props.posts });
     this.getComments();
   }
@@ -44,13 +43,15 @@ class Overview extends Component {
     }
   }
 
+  // Posts filteren op titel + paginatie op 1 pagina zetten
   filterPosts = (e) => {
     const { allPosts } = this.props.posts;
     const newPosts = { ...this.props.posts };
     const searchString = e.target.value;
     if (searchString !== "") {
       let filteredPosts = allPosts.filter(
-        (post) => post.title.toLowerCase().indexOf(searchString) !== -1
+        (post) =>
+          post.title.toLowerCase().indexOf(searchString.toLowerCase()) !== -1
       );
       newPosts.data = filteredPosts;
       newPosts.last_page = 1;
@@ -60,8 +61,8 @@ class Overview extends Component {
     }
   };
 
+  // Comments ophalen en laatste 5 comments in state steken via callback functie
   getComments = () => {
-    // Comments ophalen en laatste 5 comments in state steken via callback functie
     const handleComments = (comments) => {
       let lastComments = [];
       for (let i = 0; i < 5; i++) {
@@ -73,13 +74,12 @@ class Overview extends Component {
     const comments = this.props.getComments(handleComments);
   };
 
+  // newpost form activeren en waarden van geselecteerd post insteken voor edit
+  // scrollen naar top
   changePostHandler = (e, post) => {
     e.preventDefault();
-    // e.stopPropagation();
-    // console.log(post);
     this.setState({ selectedPost: post });
     this.setState({ showAddPost: true });
-    // document.documentElement.scrollTop = 0;
     window.scroll({
       top: 0,
       left: 0,

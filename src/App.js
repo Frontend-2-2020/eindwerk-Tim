@@ -22,16 +22,8 @@ const User = lazy(() => import("./components/user/User"));
 class App extends Component {
   state = { allPosts: [] };
   componentDidMount() {
-    // const getAllPosts = (pageCount) => {
-    //   let allPosts = [];
-    //   for (let i = 0; i < pageCount; i++) {
-    //     API.get(`api/posts?page=${i}`).then((res) => {
-    //       allPosts = [...allPosts, ...res.data.data];
-    //       this.setState({ allPosts });
-    //     });
-    //   }
-    // };
-
+    // Posts van pagina 1 ophalen
+    // dmv parameter "app" ook alle posts ophalen, voor zoekfunctie
     this.props.getposts(1, "app", this.props.getAllPosts);
 
     if (TOKEN) {

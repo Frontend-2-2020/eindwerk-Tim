@@ -32,11 +32,11 @@ class NewComment extends Component {
 
   getDummyText() {
     // om te disabelen, onderstaande axios call in commentaar zetten
-    axios.get("https://cat-fact.herokuapp.com/facts").then((res) => {
-      let indexValue = Math.floor(Math.random() * res.data.all.length);
-      this.setState({ body: res.data.all[indexValue].text });
-      // setFieldValue("body", res.data.all[0].text);
-    });
+    // axios.get("https://cat-fact.herokuapp.com/facts").then((res) => {
+    //   let indexValue = Math.floor(Math.random() * res.data.all.length);
+    //   this.setState({ body: res.data.all[indexValue].text });
+    //   // setFieldValue("body", res.data.all[0].text);
+    // });
   }
 
   submitHandler = (values) => {

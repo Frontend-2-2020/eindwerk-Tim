@@ -42,8 +42,8 @@ class LoginForm extends Component {
         onSubmit={this.submitHandler}
         validate={this.validate}
         initialValues={{
-          email: "tim@test.com",
-          password: "test",
+          email: "",
+          password: "",
         }}
       >
         <Form>

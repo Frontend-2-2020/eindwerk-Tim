@@ -7,9 +7,14 @@ import "./User.scss";
 export default class User extends Component {
   state = { user: { blog_posts: [], comments: [] } };
   componentDidMount() {
-    API.get(`/api/users/${this.props.match.params.userId}`).then((res) => {
-      this.setState({ user: res.data });
-    });
+    API.get(`/api/users/${this.props.match.params.userId}`).then(
+      (res) => {
+        this.setState({ user: res.data });
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
   render() {
     const { user } = this.state;
@@ -32,9 +37,9 @@ export default class User extends Component {
         <div className="posts">
           <div className="listTitle pl-3">Latest posts</div>
           <div className="pl-3">-------------</div>
-          <ul class="pl-3">
+          <ul className="pl-3">
             {user.blog_posts.reverse().map((post) => (
-              <li class="">
+              <li key={post.id} className="">
                 <span>{post.created_at} - </span>
                 <span>
                   <Link to={`/post/${post.id}`}>{post.id}</Link> -{" "}
@@ -52,9 +57,9 @@ export default class User extends Component {
         <div className="comments">
           <div className="listTitle pl-3">Latest comments</div>
           <div className="pl-3">---------------</div>
-          <ul class="pl-3">
+          <ul className="pl-3">
             {user.comments.reverse().map((comment) => (
-              <li class="">
+              <li key={comment.id} className="">
                 <span>{comment.created_at}</span> -{" "}
                 <span>
                   <Link to={`/post/${comment.blog_post_id}`}>

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field } from "formik";
 import { API } from "../API";
 import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
@@ -9,7 +9,6 @@ class LoginForm extends Component {
   state = { redirect: false };
   submitHandler = (values) => {
     this.login(values);
-    this.setState({ redirect: true });
   };
 
   login = (values) => {
@@ -19,19 +18,27 @@ class LoginForm extends Component {
       client_secret: "iwrHFPcaiQ3bZTzHEwQpYkpiuHUlbIOJ9SAI6DLI",
       username: values.email,
       password: values.password,
-    }).then((response) => {
-      window.localStorage.setItem(
-        "EINDWERK_LOGIN_OAUTHTOKEN",
-        response.data.access_token
-      );
-      API.defaults.headers.common["Authorization"] =
-        "Bearer " + response.data.access_token;
+    }).then(
+      (response) => {
+        window.localStorage.setItem(
+          "EINDWERK_LOGIN_OAUTHTOKEN",
+          response.data.access_token
+        );
+        API.defaults.headers.common["Authorization"] =
+          "Bearer " + response.data.access_token;
 
-      // this.setState({ user: response.data });
-      this.props.setUserData();
-    });
+        // this.setState({ user: response.data });
+        this.props.setUserData();
+        this.setState({ redirect: true });
+      },
+      (error) => {
+        this.setState({ errors: { password: "wrong username or password" } });
+        this.setState({ redirect: false });
+      }
+    );
   };
 
+  validate = (values) => {};
   render() {
     const redirect = this.state.redirect;
     if (redirect) {
@@ -42,11 +49,11 @@ class LoginForm extends Component {
         onSubmit={this.submitHandler}
         validate={this.validate}
         initialValues={{
-          email: "",
-          password: "",
+          email: "tim@test.com",
+          password: "test",
         }}
       >
-        <Form>
+        <Form errors={this.state.errors}>
           <div className="text-center border border-light p-5">
             <p className="h4 mb-4">Login</p>
             <Field
@@ -55,12 +62,20 @@ class LoginForm extends Component {
               className="form-control mb-4"
               placeholder="E-mail"
             ></Field>
-            <Field
-              type="password"
-              name="password"
-              className="form-control"
-              placeholder="Paswoord"
-            ></Field>
+            <div className="form-group">
+              <Field
+                type="password"
+                name="password"
+                className="form-control"
+                placeholder="Paswoord"
+              ></Field>
+              <div
+                style={{ color: "red", textAlign: "left", paddingTop: "10px" }}
+                className="error"
+              >
+                {this.state.errors && this.state.errors.password}
+              </div>
+            </div>
             <button className="btn btn-info my-4 btn-block" type="submit">
               Inloggen
             </button>

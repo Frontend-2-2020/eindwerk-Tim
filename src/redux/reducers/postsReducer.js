@@ -5,7 +5,6 @@ function postsReducer(state = initialstate, action) {
   let newState = {};
   let newPosts = [];
   let selectedPost = {};
-  // console.log(payload);
   switch (type) {
     case "SET_POSTS":
       newState = payload;
@@ -38,7 +37,6 @@ function postsReducer(state = initialstate, action) {
       });
       return newState;
     case "UNLIKE_POST":
-      // console.log(this.state.user);
       newState = { ...state };
       selectedPost = payload;
       newState.data = state.data.map((post) => {
@@ -54,7 +52,6 @@ function postsReducer(state = initialstate, action) {
       newState.data = newPosts;
       return newState;
     case "ADD_COMMENT":
-      console.log(payload);
       newState = { ...state };
       newState.data = state.data.map((post) => {
         if (post.id === payload.blog_post_id) {
@@ -64,7 +61,6 @@ function postsReducer(state = initialstate, action) {
       });
       return newState;
     case "DELETE_COMMENT":
-      console.log(payload);
       newState = { ...state };
       newState.data = state.data.map((post) => {
         if (post.id === payload.blog_post_id) {

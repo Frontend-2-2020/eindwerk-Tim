@@ -1,4 +1,4 @@
-$backgroundColor: #eeeeee;
+$backgroundColor: hsl(0, 0%, 93%);
 .overviewContainer {
   .postsNav {
     overflow: hidden;
@@ -12,6 +12,11 @@ $backgroundColor: #eeeeee;
     box-shadow: 2px 2px 2px 2px #c9cccd inset;
     margin-bottom: 20px;
     padding: 20px;
+  }
+  .userLink {
+    text-decoration: none;
+    //   font-weight: bold;
+    color: black;
   }
   .postsContainer {
     .postsHeader {

@@ -205,13 +205,25 @@ class Overview extends Component {
                         <ul>
                           {lastComments &&
                             lastComments.map((comment) => {
+                              let html = `<Link to=${comment.user.email}>${comment.user.first_name} ${comment.user.last_name}</Link>`;
                               return (
-                                <li
-                                  key={comment.id}
-                                  dangerouslySetInnerHTML={{
-                                    __html: ellipsify(comment.body),
-                                  }}
-                                ></li>
+                                <li key={comment.id}>
+                                  <Link to={`/user/${comment.user_id}`}>
+                                    <span className="userLink">
+                                      {comment.user.first_name}{" "}
+                                      {comment.user.last_name}
+                                    </span>
+                                  </Link>
+                                  {" - "}
+                                  <Link to={`/post/${comment.blog_post_id}`}>
+                                    <span
+                                      className="userLink"
+                                      dangerouslySetInnerHTML={{
+                                        __html: comment.body,
+                                      }}
+                                    ></span>
+                                  </Link>
+                                </li>
                               );
                             })}
                         </ul>

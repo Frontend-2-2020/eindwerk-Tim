@@ -32,8 +32,10 @@ class LoginForm extends Component {
         this.setState({ redirect: true });
       },
       (error) => {
-        this.setState({ errors: { password: "wrong username or password" } });
-        this.setState({ redirect: false });
+        this.setState({
+          errors: { password: "wrong username or password" },
+          redirect: false,
+        });
       }
     );
   };

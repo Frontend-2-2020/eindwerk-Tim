@@ -4,9 +4,11 @@ import { BlockPicker } from "react-color";
 import reactCSS from "reactcss";
 import { API } from "../API";
 import { rgbToHex } from "../helpers/helpers";
+import { Redirect } from "react-router-dom";
 
 export default class RegisterForm extends Component {
   state = {
+    redirect: false,
     errors: [],
     displayColorPicker: false,
     color: {
@@ -42,10 +44,11 @@ export default class RegisterForm extends Component {
     }).then(
       (res) => {
         // alert(res.statusText);
+        this.setState({ redirect: true });
       },
       (error) => {
         let errors = error.response.data;
-        this.setState({ errors });
+        this.setState({ errors, redirect: false });
       }
     );
   };
@@ -57,6 +60,10 @@ export default class RegisterForm extends Component {
   };
 
   render() {
+    const redirect = this.state.redirect;
+    if (redirect) {
+      return <Redirect to="/" />;
+    }
     const styles = reactCSS({
       default: {
         color: {

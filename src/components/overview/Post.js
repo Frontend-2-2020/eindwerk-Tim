@@ -21,14 +21,14 @@ class Post extends Component {
       <div className="post-terminal">
         <div className="row postHeader">
           <div className="col-md-8">
-            <Link to={`/user/${post.user_id}`}>
+            <Link to={`/user/${post.user_id}`} title="Link to Userprofile">
               <span className="userLink">{post.user.email}</span>
             </Link>
           </div>
           <div className="col-md-4 col-xl-4"></div>
         </div>
 
-        <Link to={`/post/${post.id}`}>
+        <Link to={`/post/${post.id}`} title="Link to Blogpost">
           <div className="row postDetail">
             {/* Begin 1ste kolom */}
             <div className="col-md-8">

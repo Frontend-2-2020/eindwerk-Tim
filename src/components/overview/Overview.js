@@ -209,7 +209,10 @@ class Overview extends Component {
                               return (
                                 <li key={comment.id}>
                                   <Link to={`/user/${comment.user_id}`}>
-                                    <span className="userLink">
+                                    <span
+                                      title="Link to userProfile"
+                                      className="userLink"
+                                    >
                                       {comment.user.first_name}{" "}
                                       {comment.user.last_name}
                                     </span>
@@ -217,6 +220,7 @@ class Overview extends Component {
                                   {" - "}
                                   <Link to={`/post/${comment.blog_post_id}`}>
                                     <span
+                                      title="Link to Blogpost"
                                       className="userLink"
                                       dangerouslySetInnerHTML={{
                                         __html: comment.body,

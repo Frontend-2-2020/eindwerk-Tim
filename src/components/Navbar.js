@@ -6,8 +6,11 @@ import { connect } from "react-redux";
 import { logout } from "../redux/actions/authActions";
 import { logo } from "../assets/logo";
 
+import "./Navbar.scss";
+
 class Navbar extends Component {
   render() {
+    const { user } = this.props.user;
     return (
       <nav className="navbar navbar-dark bg-dark">
         <div className="container-fluid">
@@ -24,12 +27,22 @@ class Navbar extends Component {
             </li> */}
             <li>
               {this.props.user.user !== undefined ? (
-                <span className="nav-link">
-                  <FontAwesomeIcon
+                <div
+                  className="logout d-flex flex-row align-items-center"
+                  onClick={this.props.logout}
+                >
+                  <span className="nav-link">
+                    <img
+                      src={user.avatar}
+                      className="card-img-top mx-auto d-block avatar "
+                      alt="..."
+                    />
+                    {/* <FontAwesomeIcon
                     icon={faUser}
-                    onClick={this.props.logout}
-                  ></FontAwesomeIcon>
-                </span>
+                  ></FontAwesomeIcon>{" "} */}
+                  </span>
+                  <span className="nav-link">Logout</span>
+                </div>
               ) : (
                 <Link to="/login" className="nav-link">
                   <span>
